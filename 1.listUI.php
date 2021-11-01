@@ -24,7 +24,6 @@ $sql = "select * from guestbook order by id desc;";
 $stmt = mysqli_prepare($db, $sql );
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt); 
-
 while (	$rs = mysqli_fetch_assoc($result)) {
 
 	echo "<tr><td>" , $rs['id'] ,
