@@ -18,12 +18,10 @@
 /*
 	$a = $_SESSION["keyValue"]; //取得session 變數 keyValue 的值
 	unset($_SESSION['變數名稱']); //取消session 變數的宣告
-
 	//cookie使用範例
 	setcookie("cookieName", "cookieValue", time()+36000); // 設定cookie值與有效時間
 	$b= $_COOKIE["cookieName"]; //取得cookie的值
 	echo $a, $b;
-
 */
 ?>
 <hr>
