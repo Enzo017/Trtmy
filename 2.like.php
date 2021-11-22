@@ -7,10 +7,11 @@ if(isset($_GET['id'])) {
 }
 
 $t=(int)$_GET['t'];
-
+$t <= 1;
+ 
 if ($id>0) {
 	if ($t == 1) {
-		$sql = "update guestbook set `likes`=likes+1 where id=?;";
+		$sql = "update guestbook set `likes`=likes+1 where id=?;";      
 	} elseif ($t == -1) {
 		$sql = "update guestbook set `likes`=likes-1 where id=?;";
 	} else {
@@ -20,7 +21,6 @@ if ($id>0) {
 	mysqli_stmt_bind_param($stmt, "i", $id);
 	mysqli_stmt_execute($stmt);
 
-	//echo "liked.";
 	header("Location: 1.listUI.php");
 } else {
 	echo "empty id, cannot like.";

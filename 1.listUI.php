@@ -1,6 +1,6 @@
 <?php
 require("dbconfig.php");
-if ( ! checkAccess()) {
+if ( ! (checkAccess(1))) {
 	header("Location: 0.loginUI.php");
 }
 
@@ -14,7 +14,9 @@ if ( ! checkAccess()) {
 
 <body>
 
-<p><?php echo "hello ",$_SESSION['userID'];  ?>	<a href='1.insertUI.php'>Add</a></p>
+<p><?php echo "hello ",$_SESSION['userID'];  ?>	<a href='1.insertUI.php'>Add</a>
+<a href='0.loginUI.php'>logout</a>
+</p>
 <hr />
 <table width="200" border="1">
   <tr>
@@ -23,7 +25,10 @@ if ( ! checkAccess()) {
     <td>message</td>
     <td>name</td>
     <td>讚</td>
-	<td>-</td>
+    <td>-</td>
+    <td>閒聊</td>
+    <td>心情</td>
+    <td>八卦</td>
   </tr>
 <?php
 
@@ -34,15 +39,19 @@ $result = mysqli_stmt_get_result($stmt);
 
 while (	$rs = mysqli_fetch_assoc($result)) {
 	$id=$rs['id'];
+    
 	echo "<tr><td>" , $rs['id'] ,
 	"</td><td><a href='3.viewPost.php?id=$id'>" , $rs['title'],"</a>",
 	"</td><td>" , $rs['msg'], 
 	"</td><td>", $rs['name'], "</td>",
 	"</td><td>", $rs['likes'], "</td>",
 	"<td><a href='2.like.php?id=", $rs['id'], "&t=1'>Like</a> ",
-	"<a href='2.like.php?id=", $rs['id'], "&t=-1'>Dislike</a> ",
-	"<a href='2.delete.php?id=", $rs['id'], "'>Delete</a> ",
-	"<a href='1.editUI.php?id=", $rs['id'], "'>Edit</a></td></tr>";
+	"<a href='2.like.php?id=", $rs['id'], "&t=-1'>Dislike</a> ";
+	if (checkAccess(5)) {
+		echo "<a href='2.delete.php?id=", $rs['id'], "'>Delete</a> ",
+		"<a href='1.editUI.php?id=", $rs['id'], "'>Edit</a>";
+	}
+	echo "</td></tr>";
 }
 ?>
 </table>

@@ -16,7 +16,7 @@ if(isset($_GET['id'])) {
 
 <body>
 <a href="1.listUI.php">Back</a><br>
-<table width="200" border="1">
+    <table width="200" border="1">
   <tr>
     <td>id</td>
     <td>title</td>
@@ -25,15 +25,15 @@ if(isset($_GET['id'])) {
     <td>讚</td>
 	<td>-</td>
   </tr>
+
 <?php
 $sql = "select * from guestbook where id=?;";
 $stmt = mysqli_prepare($db, $sql );
 mysqli_stmt_bind_param($stmt, "i", $id);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt); 
-$rs = mysqli_fetch_assoc($result); 
-
-	echo "<tr><td>" , $rs['id'] ,
+$rs = mysqli_fetch_assoc($result);
+	echo '<td class="red">'.$rs['id'].'</td>',
 	"</td><td>", $rs['title'],
 	"</td><td>" , $rs['msg'], 
 	"</td><td>", $rs['name'], "</td>",
@@ -44,6 +44,8 @@ $rs = mysqli_fetch_assoc($result);
 	"<a href='1.editUI.php?id=", $rs['id'], "'>Edit</a></td></tr>";
 ?>
 </table>
+}
+
 <?php
 //fetch responses of this post
 $sql = "select * from `response` where mid=? order by id;";
@@ -55,6 +57,7 @@ $result = mysqli_stmt_get_result($stmt);
 while (	$rs = mysqli_fetch_assoc($result)) {
 	echo "<p>",$rs['msg'],"</p>";
 }
+
 ?>
 <form method="post" action="3.response.php">
     <td><label>
